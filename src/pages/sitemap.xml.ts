@@ -8,17 +8,38 @@ const API_BASE = import.meta.env.PUBLIC_API_URL || 'http://localhost:8080/api';
 // Fetch all data needed for sitemap
 async function fetchSitemapData() {
     try {
-        // Fetch movies (limit to recent 1000 for performance)
-        const moviesResponse = await fetch(`${API_BASE}/movies?limit=1000`);
-        const moviesData = await moviesResponse.json();
-        const movies = moviesData.success ? moviesData.data : [];
+        // Fetch ALL movies using pagination
+        let allMovies: any[] = [];
+        let page = 1;
+        let hasMore = true;
+        const limit = 500; // Fetch in batches of 500
+
+        while (hasMore) {
+            const moviesResponse = await fetch(`${API_BASE}/movies?page=${page}&limit=${limit}`);
+            const moviesData = await moviesResponse.json();
+
+            if (moviesData.success && moviesData.data && moviesData.data.length > 0) {
+                allMovies = allMovies.concat(moviesData.data);
+
+                // Check if there are more pages
+                if (moviesData.pagination && moviesData.pagination.hasNextPage) {
+                    page++;
+                } else {
+                    hasMore = false;
+                }
+            } else {
+                hasMore = false;
+            }
+        }
+
+        console.log(`Sitemap: Fetched ${allMovies.length} movies`);
 
         // Fetch categories
         const categoriesResponse = await fetch(`${API_BASE}/categories`);
         const categoriesData = await categoriesResponse.json();
         const categories = categoriesData.success ? categoriesData.data : [];
 
-        return { movies, categories };
+        return { movies: allMovies, categories };
     } catch (error) {
         console.error('Error fetching sitemap data:', error);
         return { movies: [], categories: [] };
