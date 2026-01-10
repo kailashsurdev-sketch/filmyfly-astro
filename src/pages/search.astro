@@ -60,7 +60,13 @@ const seo = generatePageSEO(
     console.log('Fetching:', searchUrl);
     
     fetch(searchUrl)
-      .then(res => res.json())
+      .then(res => {
+        console.log('Search API status:', res.status, res.url);
+        if (!res.ok) {
+          throw new Error(`API returned ${res.status}`);
+        }
+        return res.json();
+      })
       .then(data => {
         console.log('Search results:', data);
         

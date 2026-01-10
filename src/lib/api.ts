@@ -126,15 +126,28 @@ export async function getCategoryBySlug(slug: string, page: number = 1, limit: n
  * Search movies
  */
 export async function searchMovies(query: string, page: number = 1, limit: number = 20) {
-    const res = await fetch(`${API_BASE}/q=${encodeURIComponent(query)}&page=${page}&limit=${limit}`);
-    const json: APIResponse<{
-        query: string;
-        movies: Movie[];
-        pagination: Pagination;
-    }> = await res.json();
+    try {
+        const res = await fetch(`${API_BASE}/search?q=${encodeURIComponent(query)}&page=${page}&limit=${limit}`);
 
-    console.log("Res : ", res)
-    return json;
+        if (!res.ok) {
+            throw new Error(`Search API returned ${res.status}`);
+        }
+
+        const json: APIResponse<{
+            query: string;
+            movies: Movie[];
+            pagination: Pagination;
+        }> = await res.json();
+
+        console.log('Search API Response:', res.status, res.url);
+        return json;
+    } catch (error) {
+        console.error('Error searching movies:', error);
+        return {
+            success: false,
+            error: error instanceof Error ? error.message : 'Failed to search movies'
+        };
+    }
 }
 
 /**
