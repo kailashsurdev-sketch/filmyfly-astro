@@ -9,26 +9,13 @@ interface Props {
 
 const { seo, settings } = Astro.props;
 const SITE_URL = import.meta.env.PUBLIC_SITE_URL || "https://filmyfly.work";
-const GOOGLE_ANALYTICS_ID = import.meta.env.PUBLIC_GOOGLE_ANALYTICS_ID;
-const GOOGLE_TAG_MANAGER_ID = import.meta.env.PUBLIC_GOOGLE_TAG_MANAGER_ID;
-const ADMAVEN_PLACEMENT_ID = import.meta.env.PUBLIC_ADMAVEN_PLACEMENT_ID;
-const ADMAVEN_SCRIPT_ID1 = import.meta.env.PUBLIC_ADMAVEN_SCRIPT_ID1;
-const ADMAVEN_SCRIPT_ID2 = import.meta.env.PUBLIC_ADMAVEN_SCRIPT_ID2;
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
     <!-- Google Tag Manager Head -->
-<!-- TODO: Add Google Tag Manager Head -->
- 
-<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer',`${GOOGLE_TAG_MANAGER_ID}`);</script>
-<!-- End Google Tag Manager -->
+    <!-- TODO: Add Google Tag Manager Head -->
 
     <!-- Primary Meta Tags -->
     <meta charset="UTF-8" />
@@ -46,8 +33,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <!-- Author & Copyright -->
     <meta name="author" content="FilmyFly" />
     <meta name="copyright" content="FilmyFly" />
-    <!-- admaven FIXME: Add admaven placement -->
-  {ADMAVEN_PLACEMENT_ID && <meta name='admaven-placement' content={ADMAVEN_PLACEMENT_ID}>}
 
     <!-- Robots & Indexing -->
     <meta
@@ -95,57 +80,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <link rel="dns-prefetch" href="//www.googletagmanager.com" />
     <link rel="dns-prefetch" href="//www.google-analytics.com" />
 
-    <!-- Google Search Console FIXME: Add Google Search Console -->
-    <!-- Google Analytics FIXME: Add Google Analytics -->
-
-  <!-- Google tag (gtag.js) FIXME: Add Google tag (gtag.js) -->
-  {GOOGLE_ANALYTICS_ID && (
-    <>
-     <!-- Google tag (gtag.js) -->
-<script async src={`https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ANALYTICS_ID}`}></script>
-<script >
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', {GOOGLE_ANALYTICS_ID});
-</script>
-    </>
-  )}
-
-<!-- Google tag (gtag.js) filmyfly.work -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-JD2PWCZNCK"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-JD2PWCZNCK');
-</script>
-
-  <!-- Google tag (gtag.js) filmyflyhd.sapce -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-E0JQ535RGY"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-E0JQ535RGY');
-</script>
-
-
-
-    <!-- AdSense FIXME: Add AdSense -->
-
-
-    <!-- Adstera FIXME: Add Adstera -->
-    <script src="https://pl28155521.effectivegatecpm.com/7d/3b/29/7d3b29174062309e864edc7fcb52ad96.js"></script>
-
-
-    <!-- admaven FIXME: Add admaven -->
-  <script data-cfasync="false" src={ `//dcbbwymp1bhlf.cloudfront.net/?wbbcd=${ADMAVEN_SCRIPT_ID1}`}></script>
-  <script data-cfasync="false" src={`//dcbbwymp1bhlf.cloudfront.net/?wbbcd=${ADMAVEN_SCRIPT_ID2}`}></script>
-
     <!-- Structured Data (JSON-LD) -->
     {
       seo.structuredData && (
@@ -174,12 +108,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </head>
 
   <body>
-    <!-- Google Tag Manager Body -->
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src={`https://www.googletagmanager.com/ns.html?id=${GOOGLE_TAG_MANAGER_ID}`}
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
-
     <slot />
 
     <!-- Random Color Script for Movie Titles and Keywords -->
